@@ -1,25 +1,22 @@
 document.addEventListener("DOMContentLoaded", () => {
-  // Initialize scroll banner animation
   const marqueeAnimation = gsap.to(".scroll-banner__container", {
-    xPercent: -100, // Move container items to the left
-    repeat: -1, // Infinite loop
-    duration: 20, // Control animation speed
-    ease: "linear", // Smooth continuous motion
+    xPercent: -100,
+    repeat: -1,
+    duration: 20,
+    ease: "linear",
   });
 
   let currentScroll = 0;
 
-  // Detect scroll direction and adjust marquee speed
   window.addEventListener("scroll", () => {
     const newScroll = window.pageYOffset;
     const isScrollingDown = newScroll > currentScroll;
 
     marqueeAnimation.timeScale(isScrollingDown ? 1 : -1);
 
-    currentScroll = newScroll; // Update current scroll position
+    currentScroll = newScroll;
   });
 
-  // Mouse Trail Animation
   const container = document.querySelector(".items");
   let imageIndex = 1;
   let animationTimeout = null;
@@ -29,7 +26,6 @@ document.addEventListener("DOMContentLoaded", () => {
     const newItem = document.createElement("div");
     newItem.className = "item";
 
-    // Scale the size dynamically based on the viewport
     const size = Math.max(window.innerWidth, window.innerHeight) * 0.08;
     newItem.style.width = `${size}px`;
     newItem.style.height = `${size}px`;
@@ -58,7 +54,7 @@ document.addEventListener("DOMContentLoaded", () => {
     currentlyAnimating = true;
 
     gsap.to(".item", {
-      y: window.innerHeight * 1.5, // Scale exit distance
+      y: window.innerHeight * 1.5,
       scale: 0.5,
       opacity: 0,
       duration: 0.5,
