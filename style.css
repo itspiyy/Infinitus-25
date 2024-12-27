@@ -5,57 +5,60 @@
   box-sizing: border-box;
 }
 
-/* Font Faces */
 @font-face {
-  font-family: "Helvetica Now Text";
-  src: url("fonts/HelveticaNowText-Regular.ttf") format("truetype");
+  font-family: "VCR";
+  src: url("./fonts/VCR-Mono.ttf") format("truetype");
   font-weight: normal;
   font-style: normal;
 }
 
-@font-face {
-  font-family: "PP NeueBit";
-  src: url("fonts/PPNeueBit-Bold.otf") format("opentype");
-  font-weight: bold;
-  font-style: normal;
-}
-
-@font-face {
-  font-family: "PP Mono Regular";
-  src: url("fonts/PPSupplyMono-Regular.otf") format("opentype");
-  font-weight: normal;
-  font-style: normal;
-}
-
-@font-face {
-  font-family: "PP Sans Regular";
-  src: url("fonts/PPSupplySans-Regular.otf") format("opentype");
-  font-weight: normal;
-  font-style: normal;
-}
-
-@font-face {
-  font-family: "PP Mono Light";
-  src: url("fonts/PPSupplyMono-Ultralight.otf") format("opentype");
-  font-weight: lighter;
-  font-style: normal;
-}
-
-@font-face {
-  font-family: "VCR Mono";
-  src: url("fonts/VCR-Mono.ttf") format("opentype");
-  font-weight: normal;
-  font-style: normal;
-}
-
-/* Global Styles */
 body {
   margin: 0;
   padding: 0;
   background-color: #0a0a0a;
   color: #f5f5f5;
-  font-family: "VCR Mono", sans-serif; /* Fallback fonts */
+  font-family: "VCR", sans-serif; /* Fallback fonts */
   font-size: 14px;
   overflow-x: hidden;
   height: auto;
+}
+
+#heroSection {
+  height: 100vh;
+  width: 100%;
+  background-color: #0a0a0a;
+}
+
+.scrollContainer {
+  width: 100%;
+  height: 34px; /* Adjust height as needed */
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #d9d9d9;
+  position: fixed; /* Fix the marquee at the top */
+  top: 0; /* Position it at the top of the page */
+  left: 0;
+  z-index: 10; /* Ensure it appears above other elements */
+}
+
+.slider {
+  display: flex;
+  width: 100%;
+}
+
+.list {
+  display: flex;
+  white-space: nowrap; /* Prevent wrapping */
+  will-change: transform; /* Optimize performance for animation */
+}
+
+.item {
+  display: inline-block;
+  min-width: 200px; /* Adjust size */
+  text-align: center;
+  color: #040404;
+  padding: 10px;
+  font-family: "VCR", sans-serif;
 }
