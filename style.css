@@ -6,9 +6,16 @@
 }
 
 @font-face {
-  font-family: "VCR";
+  font-family: "VCR", sans-serif;
   src: url("./fonts/VCR-Mono.ttf") format("truetype");
   font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "Helvetica", sans-serif;
+  src: url("./fonts/HelveticaNowDisplay-ExtBlk.ttf") format("truetype");
+  font-weight: bolder;
   font-style: normal;
 }
 
