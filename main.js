@@ -95,3 +95,25 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   });
 });
+function toggleDropdown() {
+  const dropdownContent = document.querySelector(".dropdown-content");
+  const currentState = dropdownContent.style.display;
+
+  // Toggle the display state
+  if (currentState === "block") {
+    dropdownContent.style.display = "none";
+  } else {
+    dropdownContent.style.display = "block";
+  }
+}
+
+const items = document.querySelectorAll('.hover-sound');
+    const hoverSound = document.getElementById('hover-sound');
+
+    // Add event listeners to play sound on hover
+    items.forEach(item => {
+      item.addEventListener('mouseover', () => {
+        hoverSound.currentTime = 0; // Reset to the start of the sound
+        hoverSound.play();
+      });
+    });
