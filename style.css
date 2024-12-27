@@ -61,22 +61,6 @@ body {
   will-change: transform;
 }
 
-/* Mouse Trail Styles */
-h1 {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  text-align: center;
-  font-family: "Arial", sans-serif;
-  font-size: 40px;
-  font-weight: 400;
-  text-transform: uppercase;
-  line-height: 100%;
-  z-index: 1;
-  color: white;
-}
-
 .items {
   position: fixed;
   top: 0;
