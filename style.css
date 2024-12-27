@@ -11,7 +11,12 @@
   padding: 0;
   box-sizing: border-box;
 }
-
+@font-face {
+    font-family: "Monument";
+    src: url('./fonts/MonumentExtended-Ultrabold.otf');
+    font-weight: normal;
+    font-style: Bold;
+  }
 @font-face {
   font-family: "VCR";
   src: url("./fonts/VCR-Mono.ttf") format("truetype");
@@ -152,3 +157,64 @@ body {
   height: 100%;
   object-fit: cover;
 }
+.dropbtn {
+    color: #f5f5f5;
+    font-family: "VCR Mono";
+    background-color: #0a0a0a;
+    padding: 16px;
+    font-size: 18px;
+    border: none;
+    cursor: pointer;
+  }
+
+  .dropdown {
+    background-color: #0a0a0a;
+    position: relative;
+    display: inline-block;
+  }
+
+  .dropdown-content {
+    padding: 8px 2px 5px 2px;
+    display: none;
+    position: absolute;
+    right: 0; height: min-content;
+    background: linear-gradient(180deg, rgba(166, 1, 1, 1.0), rgba(54, 17, 17, 1.0));
+    min-width: 345px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: 1;
+  }
+
+  .dropdown-content a{
+    font-family: "Monument";
+    color: rgb(255, 255, 255);
+    padding: 7px 17px;letter-spacing: 0.8px;
+    text-decoration: none;
+    display: block;
+  }
+  .dropdown-content p {
+    font-family: "VCR Mono";
+    color: rgb(255, 255, 255);
+    padding:2px 0px;
+    text-decoration: none;
+    display: block;
+  }
+
+  .clbtn {
+    font-family: "VCR Mono";
+    color: #f9f9f9;
+    background-color: #d00000;
+    margin: 5px 5px;
+    cursor: pointer;
+    height:20px;
+    width: 97%;border: none;
+    text-align: center;
+  }
+
+  .dropbtn:hover {
+    display: block;
+    color: #ff0000;
+  }
+
+  .dropdown-content a:hover {
+    color: #0a0a0a;
+  }
