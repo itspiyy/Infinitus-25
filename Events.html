@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Events</title>
+    <link rel="stylesheet" href="./style.css" />
+</head>
+
+<body>
+    <!-- Scroll Banner Section -->
+    <div class="scroll-banner">
+        <div class="scroll-banner__container">
+            <!-- Marquee Items -->
+            <div class="scroll-banner__item">SCROLL DOWN</div>
+            <div class="scroll-banner__item">SCROLL DOWN</div>
+            <div class="scroll-banner__item">SCROLL DOWN</div>
+            <div class="scroll-banner__item">SCROLL DOWN</div>
+            <div class="scroll-banner__item">SCROLL DOWN</div>
+            <div class="scroll-banner__item">SCROLL DOWN</div>
+            <div class="scroll-banner__item">SCROLL DOWN</div>
+            <div class="scroll-banner__item">SCROLL DOWN</div>
+            <div class="scroll-banner__item">SCROLL DOWN</div>
+            <div class="scroll-banner__item">SCROLL DOWN</div>
+            <div class="scroll-banner__item">SCROLL DOWN</div>
+            <div class="scroll-banner__item">SCROLL DOWN</div>
+        </div>
+    </div>
+
+    <nav class="navbar">
+        <div class="navbar-left">
+            <!-- Logo Link -->
+            <a href="#home" class="nav-logo">
+                <img src="imgs/official.png" alt="Logo" class="logo">
+            </a>
+            <!-- Navigation Links -->
+            <a href="#" class="nav-link shuffle-text" id="timeDisplay"></a>
+
+
+            <a href="#services" class="nav-link shuffle-text">Contact</a>
+        </div>
+        <div class="navbar-right">
+            <a href="#contact" class="nav-link shuffle-text" onclick="toggleDropdown()">Menu</a>
+            <div class="dropdown">
+                <div class="dropdown-content">
+                    <a href="#" class="dropdown-link">
+                        <div class="dropdown-link-image_wrapper">
+                            <img class="dropdown-link-image" src="./assets/menu01.jpg" alt="About Image">
+                        </div>
+                        <br>
+                        <h3 class="hover-sound shuffle-text">About</h3>
+                        <p>Who are we</p>
+                    </a>
+                    <a href="#" class="dropdown-link">
+                        <div class="dropdown-link-image_wrapper">
+                            <img class="dropdown-link-image" src="./assets/menu02.jpg" alt="Pro Shows Image">
+                        </div>
+                        <h3 class="hover-sound shuffle-text">Pro Shows</h3>
+                        <p>What we offer</p>
+                    </a>
+                    <a href="#" class="dropdown-link">
+                        <div class="dropdown-link-image_wrapper">
+                            <img class="dropdown-link-image" src="./assets/menu03.jpg" alt="Events Image">
+                        </div>
+                        <h3 class="hover-sound shuffle-text">Events</h3>
+                        <p>What's happening</p>
+                    </a>
+                    <a href="#" class="dropdown-link">
+                        <div class="dropdown-link-image_wrapper">
+                            <img class="dropdown-link-image" src="./assets/menu04.jpg" alt="HackSRM Image">
+                        </div>
+                        <h3 class="hover-sound shuffle-text">HacKSRM</h3>
+                        <p>Innovate. Win.</p>
+                    </a>
+                    <a href="#" class="dropdown-link">
+                        <div class="dropdown-link-image_wrapper">
+                            <img class="dropdown-link-image" src="./assets/menu05.jpg" alt="Team Image">
+                        </div>
+                        <h3 class="hover-sound shuffle-text">Team</h3>
+                        <p>Meet our people</p>
+                    </a>
+                    <br>
+                    <button class="clbtn shuffle-text" onclick="toggleDropdown()">CLOSE</button>
+                </div>
+            </div>
+
+        </div>
+    </nav>
+
+    <div class="bottom-text" style="position: fixed;">
+        <span class="bottom-text__left shuffle-text">Amaravati, IN</span>
+        <span class="bottom-text__center ">
+            <a href="#">[ NEXT PAGE ]</a>
+        </span>
+        <span class="bottom-text__right shuffle-text">2025</span>
+    </div>
+
+    <!-- <div class="bottom-text">
+        <span class="bottom-text__left shuffle-text">Amaravati, IN</span>
+        <span class="bottom-text__center ">
+            <a href="#">[ NEXT PAGE ]</a>
+        </span>
+        <span class="bottom-text__right shuffle-text">2025</span>
+    </div> -->
+
+    <div class="whitespace w-1"></div>
+
+    <div class="gallery">
+        <div class="project">
+            <div class="index">
+                <div class="mask">
+                </div>
+            </div>
+            <div class="images"></div>
+        </div>
+        <div class="project">
+            <div class="index">
+                <div class="mask">
+                </div>
+            </div>
+            <div class="images"></div>
+        </div>
+        <div class="project">
+            <div class="index">
+                <div class="mask">
+                </div>
+            </div>
+            <div class="images"></div>
+        </div>
+    </div>
+
+    <div class="whitespace w-2"></div>
+
+    <div class="project-names">
+        <!-- <div class="indicator">
+            <div class="symbol"></div>
+        </div> -->
+        <div class="name active ">
+            <p><span class="shuffle-text">Cultural</span>
+            </p>
+        </div>
+        <div class="name active ">
+            <p><span class="shuffle-text">Non-Cultural</span>
+            </p>
+        </div>
+        <div class=" name active ">
+            <p><span class=" shuffle-text">Technical</span>
+            </p>
+        </div>
+    </div>
+
+    <div class="preview-img">
+        <img src="./assets/img1.jpg" alt="" />
+    </div>
+
+
+    <!-- <div class="progress-bar"></div> -->
+
+
+
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+    <script src="https://unpkg.com/lenis@1.1.14/dist/lenis.min.js"></script>
+    <script src="./main.js"></script>
+</body>
+
+</html>
