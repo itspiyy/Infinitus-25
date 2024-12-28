@@ -127,7 +127,6 @@ body {
   width: 100%;
   height: 30px;
   top: 5%;
-  mix-blend-mode: difference;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -222,18 +221,17 @@ body {
   text-decoration: none;
   display: block;
 }
-
 .dropdown-link-image_wrapper {
   position: fixed;
-  top: 50%;
-  left: 50%;
+  /* top: 50%; */
+  /* left: 50%; */
   transform: translate(-50%, -50%);
-  width: 500px; /* Adjust width as needed */
+  width: 300px; /* Adjust width as needed */
   height: 400px; /* Adjust height as needed */
-  pointer-events: none;
-  opacity: 0;
-  transition: opacity 0.35s ease, transform 0.35s ease;
+  pointer-events: none; /* Prevent interaction */
+  opacity: 0; /* Initially hidden */
   z-index: 1000; /* Ensure it appears above other elements */
+  transition: opacity 0.35s ease, transform 0.35s ease; /* Smooth appearance */
 }
 
 .dropdown-link-image {
@@ -242,7 +240,6 @@ body {
   height: 100%;
   object-fit: cover;
 }
-
 .clbtn {
   font-family: "VCR", sans-serif;
   color: #1a1a1a;
@@ -427,7 +424,6 @@ body {
   position: relative;
   width: 100%;
   display: flex;
-  mix-blend-mode: difference;
   flex-direction: column;
   gap: 20em;
 }
