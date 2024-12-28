@@ -258,15 +258,34 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 });
 
+// DropDown Menu
 function toggleDropdown() {
   const dropdownContent = document.querySelector(".dropdown-content");
-  const currentState = dropdownContent.style.display;
+  const isVisible = dropdownContent.style.opacity === "1"; // Use opacity for smoother toggling
 
-  // Toggle the display state
-  if (currentState === "block") {
-    dropdownContent.style.display = "none";
+  if (isVisible) {
+    // Animate dropdown out smoothly
+    gsap.to(dropdownContent, {
+      duration: 0.4,
+      opacity: 0,
+      y: 50,
+      ease: "power1.inOut", // Smooth easing for hiding
+      onComplete: () => {
+        dropdownContent.style.display = "none"; // Hide after animation
+      },
+    });
   } else {
-    dropdownContent.style.display = "block";
+    dropdownContent.style.display = "block"; // Show before animation starts
+    gsap.fromTo(
+      dropdownContent,
+      { opacity: 0, y: 50 }, // Initial state
+      {
+        duration: 0.25,
+        opacity: 1,
+        y: 0,
+        ease: "power1.in", // Smooth and elegant ease-out for showing
+      }
+    );
   }
 }
 
@@ -364,7 +383,7 @@ function shuffleAnimation(event) {
     }
   }, intervalDuration);
 }
-
+// Menu Hover Effect
 // Menu Hover Effect
 const dropdownLinks = document.querySelectorAll(".dropdown-link");
 
@@ -374,46 +393,44 @@ dropdownLinks.forEach((link) => {
   const onMouseEnterOrTouchStart = () => {
     gsap.set(imageWrapper, {
       scale: 0.8,
+      x: -400,
+      y: 0, // Base starting position
     });
-    gsap.to(imageWrapper, { opacity: 1, scale: 1, yPercent: 0, rotation: 0 });
+    gsap.to(imageWrapper, {
+      opacity: 1,
+      scale: 1, // Slight zoom-in effect
+      duration: 0.7, // Smooth duration
+      ease: "power3.out", // Easing for natural animation
+    });
   };
 
   const onMouseLeaveOrTouchEnd = () => {
     gsap.to(imageWrapper, {
       opacity: 0,
-      scale: 1,
+      x: -220,
+      y: 100, // Slight offset to create a "drop" effect
+      scale: 0.9, // Slight shrink for smooth exit
+      duration: 0.7,
+      ease: "power3.in", // Smooth ease-in for fading out
     });
   };
 
-  const onMouseMoveOrTouchMove = (event) => {
-    const bounds = link.getBoundingClientRect();
-    let x, y;
-
-    if (event.type === "mousemove") {
-      // Mouse input
-      ({ x, y } = event);
-    } else if (event.type === "touchmove") {
-      // Touch input
-      const touch = event.touches[0];
-      x = touch.clientX;
-      y = touch.clientY;
-    }
+  const onMouseMove = (event) => {
+    const offsetX = (event.clientX - window.innerWidth / 2) * 0.03; // Smaller factor for subtle movement
+    const offsetY = (event.clientY - window.innerHeight / 2) * 0.03;
 
     gsap.to(imageWrapper, {
-      duration: 2,
-      x: x - bounds.left - bounds.width / 2,
-      y: y - bounds.top - bounds.height / 2,
+      x: -220 + offsetX, // Maintain base offset while adding cursor effect
+      y: 150 + offsetY, // Maintain base offset while adding cursor effect
+      duration: 0.5, // Shorter duration for smoother movement
+      ease: "power3.out", // Smooth easing
     });
   };
 
-  // Event listeners for both mouse and touch
+  // Event listeners for mouse and touch
   link.addEventListener("mouseenter", onMouseEnterOrTouchStart);
   link.addEventListener("mouseleave", onMouseLeaveOrTouchEnd);
-  link.addEventListener("mousemove", onMouseMoveOrTouchMove);
-
-  link.addEventListener("touchstart", onMouseEnterOrTouchStart);
-  link.addEventListener("touchend", onMouseLeaveOrTouchEnd);
-  link.addEventListener("touchmove", onMouseMoveOrTouchMove);
+  link.addEventListener("mousemove", onMouseMove);
 });
 
 // Cultural Page
