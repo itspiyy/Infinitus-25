@@ -6,17 +6,27 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Infinitus '25</title>
     <link rel="stylesheet" href="style.css">
-</head>
-
-<body>
 
     <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollToPlugin.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js"></script>
 
+</head>
+
+<body>
+
+    <div class="loading-screen">
+        <div class="loading-text">
+            <span id="loading-percentage"></span>
+        </div>
+        <div class="background-effect"></div>
+    </div>
+
+
     <!-- Scroll Banner Section -->
-    <section class="scroll-banner">
+    <div class="scroll-banner">
         <div class="scroll-banner__container">
+            <!-- Marquee Items -->
             <div class="scroll-banner__item">SCROLL DOWN</div>
             <div class="scroll-banner__item">SCROLL DOWN</div>
             <div class="scroll-banner__item">SCROLL DOWN</div>
@@ -30,40 +40,92 @@
             <div class="scroll-banner__item">SCROLL DOWN</div>
             <div class="scroll-banner__item">SCROLL DOWN</div>
         </div>
-    </section>
+    </div>
 
-    <nav class="navbar">
-        <ul class="nav-links">
-          <img id="logo" src="./imgs/INFINITUS LOGOS (1).png" href="Home.html">
-          <li><a href="https://maps.app.goo.gl/Rq2Evonwhe3FnWLH6">16°27'40.6"N </a></li>
-          <li><a href="https://maps.app.goo.gl/Rq2Evonwhe3FnWLH6">80°30'16.5"E</a></li>
-        </ul>
-        <div class="dropdown" style="float:right;">
-            <button class="dropbtn" onclick="toggleDropdown()">MENU</button>
-            <div class="dropdown-content">
-              <a href="#"><h3 class="hover-sound">ABOUT</h3> <p>WHO ARE WE</p></a>
-              <a href="#" ><h3 class="hover-sound">PROSHOWS</h3><p>WHAT WE OFFER</p></a>
-              <a href="#" ><h3 class="hover-sound">EVENTS</h3><P>WHATS HAPPENING</P></a>
-              <a href="#" ><h3 class="hover-sound">HACKSRM</h3> <p>INNOVATE.  WIN.</p></a>
-              <a href="#" ><h3 class="hover-sound">TEAM</h3> <p>MEET OUR PEOPLE</p></a>
-              <button class="clbtn" onclick="toggleDropdown()">CLOSE</button>
+
+    <div class="section-1">
+
+        <nav class="navbar">
+            <div class="navbar-left">
+                <!-- Logo Link -->
+                <a href="#home" class="nav-logo">
+                    <img src="imgs/official.png" alt="Logo" class="logo">
+                </a>
+                <!-- Navigation Links -->
+                <a href="#" class="nav-link shuffle-text" id="timeDisplay"></a>
+
+
+                <a href="#services" class="nav-link shuffle-text">Contact</a>
             </div>
+            <div class="navbar-right">
+                <a href="#contact" class="nav-link shuffle-text" onclick="toggleDropdown()">Menu</a>
+                <div class="dropdown">
+                    <div class="dropdown-content">
+                        <a href="#" class="dropdown-link">
+                            <div class="dropdown-link-image_wrapper">
+                                <img class="dropdown-link-image" src="./assets/menu01.jpg" alt="About Image">
+                            </div>
+                            <br>
+                            <h3 class="hover-sound shuffle-text">About</h3>
+                            <p>Who are we</p>
+                        </a>
+                        <a href="#" class="dropdown-link">
+                            <div class="dropdown-link-image_wrapper">
+                                <img class="dropdown-link-image" src="./assets/menu02.jpg" alt="Pro Shows Image">
+                            </div>
+                            <h3 class="hover-sound shuffle-text">Pro Shows</h3>
+                            <p>What we offer</p>
+                        </a>
+                        <a href="#" class="dropdown-link">
+                            <div class="dropdown-link-image_wrapper">
+                                <img class="dropdown-link-image" src="./assets/menu03.jpg" alt="Events Image">
+                            </div>
+                            <h3 class="hover-sound shuffle-text">Events</h3>
+                            <p>What's happening</p>
+                        </a>
+                        <a href="#" class="dropdown-link">
+                            <div class="dropdown-link-image_wrapper">
+                                <img class="dropdown-link-image" src="./assets/menu04.jpg" alt="HackSRM Image">
+                            </div>
+                            <h3 class="hover-sound shuffle-text">HacKSRM</h3>
+                            <p>Innovate. Win.</p>
+                        </a>
+                        <a href="#" class="dropdown-link">
+                            <div class="dropdown-link-image_wrapper">
+                                <img class="dropdown-link-image" src="./assets/menu05.jpg" alt="Team Image">
+                            </div>
+                            <h3 class="hover-sound shuffle-text">Team</h3>
+                            <p>Meet our people</p>
+                        </a>
+                        <br>
+                        <button class="clbtn shuffle-text" onclick="toggleDropdown()">CLOSE</button>
+                    </div>
+                </div>
+
+            </div>
+        </nav>
+
+        <div class="bottom-text">
+            <span class="bottom-text__left shuffle-text">Amaravati, IN</span>
+            <span class="bottom-text__center ">
+                <a href="#">[ NEXT PAGE ]</a>
+            </span>
+            <span class="bottom-text__right shuffle-text">2025</span>
         </div>
-      </nav>
 
-    <audio id="hover-sound" src="./sfx/tunetank.com_setting-navigation-click.wav"></audio>
 
-    <!-- Mouse Trail Content -->
-    <div class="items"></div>
+
+        <!-- Mouse Trail Content -->
+        <div class="items">
+
+        </div>
+
+    </div>
 
     <!-- Temporary content -->
-    <div id="heroSection">
-        <div style="height: 100vh; width: 100%; background-color: #040404;">
-            <p style="color: white; padding: 20px;"></p>
-        </div>
-        <div style="height: 100vh; width: 100%; background-color: #202020;">
-            <p style="color: white; padding: 20px;"></p>
-        </div>
+    <div class="footer">
+
+
     </div>
 
     <script src="main.js"></script>
