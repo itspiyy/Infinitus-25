@@ -1,86 +1,98 @@
 // Loading Screen
 document.addEventListener("DOMContentLoaded", () => {
   const loadingScreen = document.querySelector(".loading-screen");
-  const loadingText = document.querySelector(".loading-text");
-  const scrollBanner = document.querySelector(".scroll-banner");
+  const loadingText = document.querySelector(".loading-screen p"); // Select the paragraph in loading-screen
+  const introOne = document.querySelector(".intro-one"); // Select intro-one div
+  const introTwo = document.querySelector(".intro-two"); // Select intro-two div
   const navbar = document.querySelector(".navbar");
   const bottomText = document.querySelector(".bottom-text");
-  const backgroundEffect = document.querySelector(".background-effect");
-  const defaultDuration = 3000; // 3 seconds
+  const scrollBanner = document.querySelector(".scroll-banner");
+  const loadingVideo = document.querySelector(".loading-video");
+  const defaultDuration = 2000; // Shortened to 2 seconds
 
-  // Set initial styles for the background-effect element
-  gsap.set(backgroundEffect, {
-    position: "absolute",
-    bottom: 0,
-    left: 0,
-    width: "100%",
-    height: "100%",
-    backgroundColor: "#1a1a1a",
-    zIndex: -1, // Ensure it sits behind other elements
-  });
+  loadingVideo.addEventListener("contextmenu", (e) => e.preventDefault());
 
   // Define GSAP timeline
   const timeline = gsap.timeline();
 
-  // Run animations after the page has fully loaded
+  // Run animations after the video starts playing
   const handleLoadedAnimations = () => {
-    // Ensure text visibility for "Enable audio..."
-    loadingText.style.opacity = 0; // Reset to fully hidden before animation
-
-    // Show the "Enable audio..." text
     timeline
-      .to(loadingText, {
-        opacity: 1,
-        duration: 0.5,
-        onStart: () => {
-          loadingText.textContent =
-            "Activate audio for a fully immersive experience.";
-        },
-      })
-      // Play scroll-banner animation
+      // Animate introOne and introTwo slightly earlier
       .fromTo(
-        scrollBanner,
+        introOne,
         {
-          x: "100%", // Start position (off-screen to the right)
+          x: "-500%", // Start position (off-screen to the left)
+          opacity: 0,
         },
         {
-          x: "0%", // End position (fully visible)
-          duration: 1.5,
+          x: "0%", // Slide to center
+          opacity: 1,
+          duration: 1,
           ease: "power3.out",
         },
-        "<" // Start simultaneously with text fade-in
+        "-=0.5" // Start 0.5 seconds earlier than loadingText
       )
-      // Fade out the "Enable audio..." text
+      .fromTo(
+        introTwo,
+        {
+          x: "500%", // Start position (off-screen to the right)
+          opacity: 0,
+        },
+        {
+          x: "0%", // Slide to center
+          opacity: 1,
+          duration: 1,
+          ease: "power3.out",
+        },
+        "-=0.5" // Start 0.5 seconds earlier than loadingText
+      )
+      // Animate loadingText slightly later than introOne and introTwo
       .to(
         loadingText,
         {
-          opacity: 0,
-          duration: 0.5,
-          delay: 0.5,
+          opacity: 1,
+          duration: 0.5, // Fade-in duration
         },
-        "+=0.5" // Wait 0.5s after scroll banner animation completes
+        "-=0.3" // Slightly after introOne and introTwo start
       )
-      // Animate backgroundEffect to slide from bottom to top and fade out
-      .to(backgroundEffect, {
-        x: "-100%", // Slide up out of the screen
-        opacity: 0.6, // Fade out
-        duration: 0.8,
-        ease: "power3.out",
-      })
-      // Animate loadingScreen to slide out in the same way
+      // Hold briefly, then fade out all together
+      .to(
+        [loadingText, introOne, introTwo],
+        {
+          opacity: 0,
+          duration: 0.3, // Fade-out duration
+        },
+        "+=0.3" // Hold for a brief moment
+      )
+      // Slide the loading screen (with the video) upwards
       .to(
         loadingScreen,
         {
-          x: "-100%", // Slide up out of the screen
           opacity: 0, // Fade out
-          duration: 0.6,
+          duration: 0.75,
           ease: "power3.inOut",
           onComplete: () => {
-            loadingScreen.style.display = "none"; // Ensure it's removed from the flow
+            loadingScreen.style.display = "none"; // Remove the loading screen
             window.scrollTo(0, 0); // Reset scroll position
           },
         },
-        "+=0.2" // Slight delay after backgroundEffect animation
+        "+=0.1" // Slight delay after text fade out
+      )
+      // Animate scroll-banner first
+      .fromTo(
+        scrollBanner,
+        {
+          x: 10, // Start slightly to the right
+          opacity: 0, // Start fully transparent
+        },
+        {
+          x: 0, // Move to original position
+          opacity: 1, // Fully visible
+          duration: 0.4, // Fade-in duration
+          ease: "power3.out",
+        },
+        "+=0.1" // Start slightly after loading screen animation
       )
       // Animate navbar and bottom-text to pop up and slide in
       .fromTo(
@@ -91,23 +103,24 @@ document.addEventListener("DOMContentLoaded", () => {
         },
         {
           opacity: 1,
-          y: 0, // End position (original position)
-          duration: 1.5,
+          y: 0, // End position
+          duration: 0.8, // Animation duration
           ease: "power3.out",
-          stagger: 0.3, // Delay between navbar and bottom-text
-        },
-        "<0.5" // Start 0.5 seconds after loadingScreen animation
+          stagger: 0.3, // Stagger animation between navbar and bottom-text
+        }
       );
   };
 
-  // Wait for assets to load or fallback to default timer
+  // Start animations after a 2-second timeout or when the video starts playing
   const fallbackTimer = setTimeout(() => {
     handleLoadedAnimations();
   }, defaultDuration);
 
-  window.addEventListener("load", () => {
+  loadingVideo.addEventListener("loadeddata", () => {
     clearTimeout(fallbackTimer);
-    handleLoadedAnimations();
+    setTimeout(() => {
+      handleLoadedAnimations();
+    }, defaultDuration);
   });
 });
 
@@ -268,7 +281,7 @@ function toggleDropdown() {
     gsap.to(dropdownContent, {
       duration: 0.4,
       opacity: 0,
-      y: 50,
+      // y: 50,
       ease: "power1.inOut", // Smooth easing for hiding
       onComplete: () => {
         dropdownContent.style.display = "none"; // Hide after animation
@@ -278,7 +291,7 @@ function toggleDropdown() {
     dropdownContent.style.display = "block"; // Show before animation starts
     gsap.fromTo(
       dropdownContent,
-      { opacity: 0, y: 50 }, // Initial state
+      { opacity: 0 }, // Initial state
       {
         duration: 0.25,
         opacity: 1,
@@ -383,7 +396,7 @@ function shuffleAnimation(event) {
     }
   }, intervalDuration);
 }
-// Menu Hover Effect
+
 // Menu Hover Effect
 const dropdownLinks = document.querySelectorAll(".dropdown-link");
 
@@ -399,7 +412,7 @@ dropdownLinks.forEach((link) => {
     gsap.to(imageWrapper, {
       opacity: 1,
       scale: 1, // Slight zoom-in effect
-      duration: 0.7, // Smooth duration
+      duration: 0.5, // Smooth duration
       ease: "power3.out", // Easing for natural animation
     });
   };
@@ -410,7 +423,7 @@ dropdownLinks.forEach((link) => {
       x: -220,
       y: 100, // Slight offset to create a "drop" effect
       scale: 0.9, // Slight shrink for smooth exit
-      duration: 0.7,
+      duration: 0.5,
       ease: "power3.in", // Smooth ease-in for fading out
     });
   };
@@ -433,227 +446,142 @@ dropdownLinks.forEach((link) => {
   link.addEventListener("mousemove", onMouseMove);
 });
 
-// Cultural Page
-document.addEventListener("DOMContentLoaded", () => {
-  gsap.registerPlugin(ScrollTrigger);
+// Cultural Events
+// Cultural Events
+let culturalTarget = 0;
+let culturalCurrent = 0;
+let culturalEase = 0.075;
 
-  // Initialize scroll handler
-  const lenis = new Lenis();
-  lenis.on("scroll", ScrollTrigger.update);
-  gsap.ticker.add((time) => {
-    lenis.raf(time * 750);
+const culturalSlider = document.querySelector(".slider");
+const culturalSliderWrapper = document.querySelector(".slider-wrapper");
+const culturalSlides = document.querySelectorAll(".slide");
+
+let culturalMaxScroll = culturalSliderWrapper.offsetWidth - window.innerWidth;
+
+function culturalLerp(start, end, factor) {
+  return start + (end - start) * factor;
+}
+
+function culturalUpdateScaleAndPosition() {
+  culturalSlides.forEach((slide) => {
+    const rect = slide.getBoundingClientRect();
+    const centerPosition = (rect.left + rect.right) / 2;
+    const distanceFromCenter = centerPosition - window.innerWidth / 2;
+
+    let scale, offsetX;
+    if (distanceFromCenter > 0) {
+      scale = Math.min(1.75, 1 + distanceFromCenter / window.innerWidth);
+      offsetX = (scale - 1) * 300;
+    } else {
+      scale = Math.max(
+        0.5,
+        1 - Math.abs(distanceFromCenter) / window.innerWidth
+      );
+      offsetX = 0;
+    }
+
+    gsap.set(slide, { scale: scale, x: offsetX });
   });
-  gsap.ticker.lagSmoothing(0);
+}
 
-  // Populate gallery dynamically
-  function populateGallery() {
-    const imagesContainers = document.querySelectorAll(".images");
-    imagesContainers.forEach((container) => {
-      for (let j = 0; j < imagesPerProject; j++) {
-        if (imageIndex > totalImages) imageIndex = 1;
-        const imgContainer = document.createElement("div");
-        imgContainer.classList.add("img");
+function culturalUpdate() {
+  culturalCurrent = culturalLerp(culturalCurrent, culturalTarget, culturalEase);
 
-        const img = document.createElement("img");
-        img.src = `assets/img${imageIndex}.jpg`;
-        img.alt = `Project Image ${imageIndex}`;
-        imgContainer.appendChild(img);
-
-        container.appendChild(imgContainer);
-        imageIndex++;
-      }
-    });
-  }
-
-  const imagesPerProject = 6; // Number of images per project
-  const totalImages = 6; // Total number of images
-  let imageIndex = 1;
-
-  populateGallery();
-
-  // Update the preview image
-  const previewImg = document.querySelector(".preview-img img");
-  const imgElements = document.querySelectorAll(".img img");
-
-  imgElements.forEach((img) => {
-    ScrollTrigger.create({
-      trigger: img,
-      start: "top 50%",
-      end: "bottom 50%",
-      onEnter: () => {
-        previewImg.src = img.src; // Update preview image
-      },
-      onEnterBack: () => {
-        previewImg.src = img.src; // Update preview image
-      },
-    });
+  gsap.set(".slider-wrapper", {
+    x: -culturalCurrent,
   });
 
-  // Indicator movement and project name activation
-  const indicator = document.querySelector(".indicator");
-  const indicatorStep = 18;
-  const names = gsap.utils.toArray(".name");
-  gsap.set(".indicator", { top: "0px" });
+  culturalUpdateScaleAndPosition();
 
-  const projects = gsap.utils.toArray(".project");
-  projects.forEach((project, index) => {
-    ScrollTrigger.create({
-      trigger: project,
-      start: "top 50%",
-      end: "bottom 50%",
-      onEnter: () => {
-        gsap.to(indicator, {
-          top: Math.max(0, index * indicatorStep) + "px",
-          duration: 0.3,
-          ease: "power2.out",
-        });
+  requestAnimationFrame(culturalUpdate);
+}
 
-        names.forEach((name, i) =>
-          name.classList.toggle("active", i === index)
-        );
-      },
-      onLeaveBack: () => {
-        const targetPosition = index - 1 < 0 ? 0 : (index - 1) * indicatorStep;
-        gsap.to(indicator, {
-          top: targetPosition + "px",
-          duration: 0.3,
-          ease: "power2.out",
-        });
-
-        names.forEach((name, i) =>
-          name.classList.toggle("active", i === (index - 1 < 0 ? 0 : index - 1))
-        );
-      },
-    });
-  });
-
-  // Mask animation
-  projects.forEach((project, i) => {
-    const mask = project.querySelector(".mask");
-    const digitWrapper = project.querySelector(".digit-wrapper");
-    const firstDigit = project.querySelector(".first");
-    const secondDigit = project.querySelector(".second");
-
-    gsap.set([mask, digitWrapper, firstDigit, secondDigit], { y: 0 });
-    gsap.set(mask, { position: "absolute", top: 0 });
-
-    ScrollTrigger.create({
-      trigger: project,
-      start: "top bottom",
-      end: "bottom top",
-      anticipatePin: 1,
-      fastScrollEnd: true,
-      preventOverlaps: true,
-      onUpdate: (self) => {
-        const projectRect = project.getBoundingClientRect();
-        const windowCenter = window.innerHeight / 2;
-        const nextProject = projects[i + 1];
-        const velocityAdjustment = Math.min(scrollVelocity * 0.1, 100);
-        const pushPoint =
-          window.innerHeight * (0.85 + velocityAdjustment / window.innerHeight);
-
-        if (projectRect.top <= windowCenter) {
-          if (!mask.isFixed) {
-            mask.isFixed = true;
-            gsap.set(mask, { position: "fixed", top: "50vh" });
-          }
-
-          if (nextProject) {
-            const nextRect = nextProject.getBoundingClientRect();
-
-            if (nextRect.top <= pushPoint && activeIndex !== i + 1) {
-              gsap.killTweensOf([mask, digitWrapper, firstDigit, secondDigit]);
-
-              activeIndex = i + 1;
-              gsap.to(mask, {
-                y: -80,
-                duration: 0.3,
-                ease: "power2.out",
-                overwrite: true,
-              });
-              gsap.to(digitWrapper, {
-                y: -80,
-                duration: 0.5,
-                delay: 0.5,
-                ease: "power2.out",
-                overwrite: true,
-              });
-              gsap.to(firstDigit, {
-                y: -80,
-                duration: 0.75,
-                ease: "power2.out",
-                overwrite: true,
-              });
-              gsap.to(secondDigit, {
-                y: -80,
-                duration: 0.75,
-                delay: 0.1,
-                ease: "power2.out",
-                overwrite: true,
-              });
-            }
-          }
-        } else {
-          mask.isFixed = false;
-          gsap.set(mask, { position: "absolute", top: 0 });
-        }
-
-        if (self.direction === -1 && projectRect.top > windowCenter) {
-          mask.isFixed = false;
-          gsap.set(mask, { position: "absolute", top: 0 });
-
-          if (i > 0 && activeIndex === i) {
-            const prevProject = projects[i - 1];
-            if (prevProject) {
-              const prevMask = prevProject.querySelector(".mask");
-              const prevWrapper = prevProject.querySelector(".digit-wrapper");
-              const prevFirst = prevProject.querySelector(".first");
-              const prevSecond = prevProject.querySelector(".second");
-
-              gsap.killTweensOf([prevMask, prevWrapper, prevFirst, prevSecond]);
-
-              activeIndex = i - 1;
-              gsap.to([prevMask, prevWrapper], {
-                y: 0,
-                duration: 0.3,
-                ease: "power2.out",
-                overwrite: true,
-              });
-              gsap.to(prevFirst, {
-                y: 0,
-                duration: 0.75,
-                ease: "power2.out",
-                overwrite: true,
-              });
-              gsap.to(prevSecond, {
-                y: 0,
-                duration: 0.75,
-                delay: 0.1,
-                ease: "power2.out",
-                overwrite: true,
-              });
-            }
-          }
-        }
-      },
-      onEnter: () => {
-        if (i === 0) activeIndex = 0;
-      },
-    });
-  });
-
-  // Track scroll velocity
-  let activeIndex = -1;
-  let lastScrollTop = 0;
-  let scrollVelocity = 0;
-
-  window.addEventListener(
-    "scroll",
-    () => {
-      const st = window.pageYOffset;
-      scrollVelocity = Math.abs(st - lastScrollTop);
-      lastScrollTop = st;
-    },
-    { passive: true }
-  );
+window.addEventListener("resize", () => {
+  culturalMaxScroll = culturalSliderWrapper.offsetWidth - window.innerWidth;
 });
+
+window.addEventListener("wheel", (e) => {
+  culturalTarget += e.deltaY;
+  culturalTarget = Math.max(0, culturalTarget);
+  culturalTarget = Math.min(culturalMaxScroll, culturalTarget);
+});
+
+culturalUpdate();
+
+// Technical Events
+
+let technicalTarget = 0; // Tracks the target scroll position
+let technicalCurrent = 0; // Tracks the current position of the slider
+let technicalEase = 0.075; // Controls the smooth scrolling effect
+
+const technicalSlider = document.querySelector(".image-slider");
+const technicalSliderWrapper = document.querySelector(".image-slider-wrapper");
+const technicalSlides = document.querySelectorAll(".image-slide");
+
+// Calculate the maximum scrollable distance
+let technicalMaxScroll = technicalSliderWrapper.offsetWidth - window.innerWidth;
+
+// Linear interpolation function for smooth scrolling
+function technicalLerp(start, end, factor) {
+  return start + (end - start) * factor;
+}
+
+// Update scale and position of each slide based on its distance from the center
+function technicalUpdateScaleAndPosition() {
+  technicalSlides.forEach((imageSlide) => {
+    const rect = imageSlide.getBoundingClientRect();
+    const centerPosition = (rect.left + rect.right) / 2;
+    const distanceFromCenter = centerPosition - window.innerWidth / 2;
+
+    let scale, offsetX;
+
+    if (distanceFromCenter > 0) {
+      scale = Math.min(1.75, 1 + distanceFromCenter / window.innerWidth);
+      offsetX = (scale - 1) * 300;
+    } else {
+      scale = Math.max(
+        0.5,
+        1 - Math.abs(distanceFromCenter) / window.innerWidth
+      );
+      offsetX = 0;
+    }
+
+    gsap.set(imageSlide, { scale: scale, x: offsetX });
+  });
+}
+
+// Continuously update the slider's position and the scale of slides
+function technicalUpdate() {
+  // Smoothly interpolate the current position towards the target
+  technicalCurrent = technicalLerp(
+    technicalCurrent,
+    technicalTarget,
+    technicalEase
+  );
+
+  // Move the slider wrapper
+  gsap.set(technicalSliderWrapper, {
+    x: -technicalCurrent,
+  });
+
+  // Update scale and position for each slide
+  technicalUpdateScaleAndPosition();
+
+  // Request the next animation frame
+  requestAnimationFrame(technicalUpdate);
+}
+
+// Recalculate the maximum scrollable distance on window resize
+window.addEventListener("resize", () => {
+  technicalMaxScroll = technicalSliderWrapper.offsetWidth - window.innerWidth;
+});
+
+// Update the target position on mouse wheel scroll
+window.addEventListener("wheel", (e) => {
+  technicalTarget += e.deltaY;
+  technicalTarget = Math.max(0, technicalTarget); // Prevent scrolling beyond start
+  technicalTarget = Math.min(technicalMaxScroll, technicalTarget); // Prevent scrolling beyond end
+});
+
+// Initialize the animation
+technicalUpdate();
