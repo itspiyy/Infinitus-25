@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Infinitus '25</title>
     <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="res.css">
 
     <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollToPlugin.min.js"></script>
@@ -16,10 +17,13 @@
 <body>
 
     <div class="loading-screen">
-        <div class="loading-text">
-            <span id="loading-percentage"></span>
-        </div>
-        <div class="background-effect"></div>
+        <video class="loading-video" autoplay muted>
+            <source src="./assets/intro-3.mp4" type="video/mp4">
+            Your browser does not support the video tag.
+        </video>
+        <p>Activate audio for a fully immersive experience.</p>
+        <div class="intro-one">Loading</div>
+        <div class="intro-two">Experience</div>
     </div>
 
 
